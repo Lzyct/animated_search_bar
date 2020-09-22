@@ -1,5 +1,5 @@
-name: flutter_search_bar_example
-description: Demonstrates how to use the flutter_search_bar plugin.
+name: animated_search_bar_example
+description: Demonstrates how to use the animated_search_bar plugin.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_search_bar:
+  animated_search_bar:
     # When depending on this package from a real application you should use:
     #   flutter_search_bar: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints

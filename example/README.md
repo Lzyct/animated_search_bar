@@ -1,6 +1,6 @@
 # flutter_search_bar_example
 
-Demonstrates how to use the flutter_search_bar plugin.
+Demonstrates how to use the animated_search_bar plugin.
 
 ## Getting Started
 
