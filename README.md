@@ -38,6 +38,7 @@ AnimatedSearchBar(
   
   
 ## Available Parameters  
+
 | Param | isRequired |  
 |--|--|  
 | **String** label | No |  
@@ -47,7 +48,7 @@ AnimatedSearchBar(
 | **int** animationDuration *in milliseconds* | No |  
 | **TextStyle** searchStyle  | No |  
 | **Color** cursorColor| No |
-  
+
 ---  
 
 <h3 align="center">Buy me coffee if you love my works ☕️</h3>  
