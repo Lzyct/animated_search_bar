@@ -1,5 +1,5 @@
   
-# AnimatedSearchBar  [![pub package](https://img.shields.io/pub/v/animated_search_bar.svg)](https://pub.dev/packages/animated_search_bar) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# AnimatedSearchBar  [![pub package](https://img.shields.io/pub/v/animated_search_bar.svg)](https://pub.dev/packages/animated_search_bar) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  [![Build Status](https://travis-ci.com/ukieTux/animated_search_bar.svg?branch=master)](https://travis-ci.com/ukieTux/animated_search_bar)
 A Beautiful and Simple SearchBar widget with animation transition. It can be fully customized with label, labelStyle, searchDecoration, etc. It also maintains onChange state.  
   
 ![Farmers Market Finder Demo](https://github.com/ukieTux/animated_search_bar/blob/master/gifs/app_bar.gif)
