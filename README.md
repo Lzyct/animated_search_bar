@@ -17,7 +17,7 @@ dependencies:
 Import it:  
   
 ```dart  
-import 'package:flutter_search_bar/animated_search_bar.dart';
+import 'package:animated_search_bar/animated_search_bar.dart';
 ```  
   
 ## Usage Examples  
