@@ -11,7 +11,7 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
   
 ```yaml  
 dependencies:  
- ... animated_search_bar: "^latest version"
+ ... animated_search_bar: "^latest_version"
  ```  
   
 Import it:  
