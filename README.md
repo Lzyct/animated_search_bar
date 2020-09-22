@@ -46,7 +46,7 @@ AnimatedSearchBar(
 | **TextStyle** labelStyle | No |  
 | **InputDecoration** searchDecoration | No |  
 | **int** animationDuration *in milliseconds* | No |  
-| **TextStyle** searchStyle  | No |  
+| **TextStyle** searchStyle | No |  
 | **Color** cursorColor | No |
 
 ---  
