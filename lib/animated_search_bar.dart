@@ -159,11 +159,11 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               },
               child: _isSearch
                   ?
-              //if is search, set icon as Close
-              Icon(
-                Icons.close,
-                key: ValueKey("close"),
-              ) //if is !search, set icon as Search
+                  //if is search, set icon as Close
+                  Icon(
+                      Icons.close,
+                      key: ValueKey("close"),
+                    ) //if is !search, set icon as Search
                   : Icon(Icons.search, key: ValueKey("search")),
             ),
             onPressed: () {
