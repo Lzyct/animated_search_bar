@@ -2,7 +2,7 @@ name: animated_search_bar
 description: Show searchbar and title with animation
 version: 1.0.0
 author: Mudassir<hey.mudassir@gmail.com>
-homepage: https://github.com/ukieTux/animated_toggle_tab
+homepage: https://github.com/ukieTux/animated_search_bar
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

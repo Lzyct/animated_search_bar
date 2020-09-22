@@ -46,8 +46,10 @@ AnimatedSearchBar(
 | **InputDecoration** searchDecoration | No |  
 | **int** animationDuration *in milliseconds* | No |  
 | **TextStyle** searchStyle  | No |  
-| **Color** cursorColor| No |  
+| **Color** cursorColor| No |
+  
 ---  
+
 <h3 align="center">Buy me coffee if you love my works ☕️</h3>  
 <p align="center">  
   <a href="https://ko-fi.com/ukietux" target="_blank">  
