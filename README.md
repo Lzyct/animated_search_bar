@@ -47,7 +47,7 @@ AnimatedSearchBar(
 | **InputDecoration** searchDecoration | No |  
 | **int** animationDuration *in milliseconds* | No |  
 | **TextStyle** searchStyle  | No |  
-| **Color** cursorColor| No |
+| **Color** cursorColor | No |
 
 ---  
 
