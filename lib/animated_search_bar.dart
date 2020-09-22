@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 ///*********************************************
 /// © 2020 | All Right Reserved
 class AnimatedSearchBar extends StatefulWidget {
-  AnimatedSearchBar({
+  const AnimatedSearchBar({
     Key key,
-    this.label,
+    this.label = "",
     this.onChanged,
     this.labelStyle = const TextStyle(
       fontSize: 14,
