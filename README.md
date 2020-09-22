@@ -2,6 +2,9 @@
 # AnimatedSearchBar  [![pub package](https://img.shields.io/pub/v/animated_search_bar.svg)](https://pub.dev/packages/animated_search_bar)
 A Beautiful and Simple SearchBar widget with animation transition. It can be fully customized with label, labelStyle, searchDecoration, etc. It also maintains onChange state.  
   
+![Farmers Market Finder Demo](https://github.com/ukieTux/animated_search_bar/blob/master/gifs/app_bar.gif)
+![Farmers Market Finder Demo](https://github.com/ukieTux/animated_search_bar/blob/master/gifs/body.gif)
+  
 ## Getting Started  
   
 In the `pubspec.yaml` of your flutter project, add the following dependency:  
