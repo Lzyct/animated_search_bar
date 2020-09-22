@@ -7,6 +7,13 @@ import 'package:flutter/material.dart';
 ///*********************************************
 /// © 2020 | All Right Reserved
 class AnimatedSearchBar extends StatefulWidget {
+  ///  label - String ,isRequired : No
+  ///  onChanged - Function(String)  ,isRequired : No
+  ///  labelStyle - TextStyle ,isRequired :  No
+  ///  searchDecoration - InputDecoration  ,isRequired : No
+  ///  animationDuration in milliseconds -  int ,isRequired : No
+  ///  searchStyle - TextStyle ,isRequired :  No
+  ///  cursorColor - Color ,isRequired : No
   const AnimatedSearchBar({
     Key key,
     this.label = "",
@@ -119,20 +126,20 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
         Expanded(
           flex: 10,
           child:
-          //use icon button to switch status
-          IconButton(
+              //use icon button to switch status
+              IconButton(
             icon:
-            // Use animated Switcher to show animation in transition widget
-            AnimatedSwitcher(
+                // Use animated Switcher to show animation in transition widget
+                AnimatedSwitcher(
               duration: Duration(milliseconds: 350),
               transitionBuilder: (Widget child, Animation<double> animation) {
                 //animated from top to bottom
                 final inAnimation = Tween<Offset>(
-                    begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
+                        begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
                     .animate(animation);
                 //animated from bottom to top
                 final outAnimation = Tween<Offset>(
-                    begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
+                        begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
                     .animate(animation);
 
                 // show different animation base on key
