@@ -42,6 +42,8 @@ AnimatedSearchBar(
 | **TextStyle** labelStyle | No |  
 | **InputDecoration** searchDecoration | No |  
 | **int** animationDuration *in milliseconds* | No |  
+| **TextStyle** searchStyle  | No |  
+| **Color** cursorColor| No |  
 ---  
 <h3 align="center">Buy me coffee if you love my works ☕️</h3>  
 <p align="center">  
