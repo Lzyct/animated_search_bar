@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 ///*********************************************
 /// Created by ukietux on 22/09/20 with ♥
 /// (>’_’)> email : ukie.tux@gmail.com
@@ -17,6 +16,7 @@ class AnimatedSearchBar extends StatefulWidget {
   const AnimatedSearchBar({
     Key key,
     this.label = "",
+    this.alignment = TextAlign.start,
     this.onChanged,
     this.labelStyle = const TextStyle(
       fontSize: 14,
@@ -40,6 +40,7 @@ class AnimatedSearchBar extends StatefulWidget {
   final int animationDuration;
   final TextStyle searchStyle;
   final Color cursorColor;
+  final TextAlign alignment;
 
   @override
   _AnimatedSearchBarState createState() => _AnimatedSearchBarState();
@@ -96,7 +97,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                             focusNode: _fnSearch,
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.search,
-                            textAlign: TextAlign.start,
+                            textAlign: widget.alignment,
                             style: widget.searchStyle,
                             minLines: 1,
                             maxLines: 1,
