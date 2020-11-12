@@ -53,7 +53,16 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
   @override
   Widget build(BuildContext context) {
     // Use row as Root view
-    return Row(
+    return GestureDetector(
+       onTap: () {
+        if (!_isSearch) {
+          setState(() {
+            _isSearch = true;
+            _fnSearch.requestFocus();
+          });
+        }
+      },
+      child:   Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -177,6 +186,8 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
           ),
         )
       ],
+    ),
     );
+  
   }
 }
