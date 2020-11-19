@@ -14,3 +14,6 @@
 
 * Added feature - focus on tapping the textfield & not just the icon
 * Added feature - support for custom alignment
+
+## 1.2.0
+* Added feature - Debouncer to detect when you stop typing
