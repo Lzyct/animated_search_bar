@@ -76,128 +76,120 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
         children: [
           // Handle Animated Change view for Title and TextField Search
           Expanded(
-              flex: 85,
               // Use animated Switcher to show animation in transition widget
               child: AnimatedSwitcher(
-                duration: Duration(milliseconds: widget.animationDuration),
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  //animated from right to left
-                  final inAnimation = Tween<Offset>(
-                          begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0))
+            duration: Duration(milliseconds: widget.animationDuration),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              //animated from right to left
+              final inAnimation =
+                  Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0))
                       .animate(animation);
-                  //animated from left to right
-                  final outAnimation = Tween<Offset>(
-                          begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0))
+              //animated from left to right
+              final outAnimation =
+                  Tween<Offset>(begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0))
                       .animate(animation);
 
-                  // show different animation base on key
-                  if (child.key == ValueKey("textF")) {
-                    return ClipRect(
-                      child:
-                          SlideTransition(position: inAnimation, child: child),
-                    );
-                  } else {
-                    return ClipRect(
-                      child:
-                          SlideTransition(position: outAnimation, child: child),
-                    );
-                  }
-                },
-                child: _isSearch
-                    ?
-                    //Container of SearchView
-                    SizedBox(
-                        key: ValueKey("textF"),
-                        height: 60,
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: TextFormField(
-                              focusNode: _fnSearch,
-                              keyboardType: TextInputType.text,
-                              textInputAction: TextInputAction.search,
-                              textAlign: widget.alignment,
-                              style: widget.searchStyle,
-                              minLines: 1,
-                              maxLines: 1,
-                              cursorColor: widget.cursorColor ??
-                                  ThemeData().primaryColor,
-                              textAlignVertical: TextAlignVertical.center,
-                              decoration: widget.searchDecoration,
-                              onChanged: (value) {
-                                _debouncer.run(() {
-                                  widget.onChanged(value);
-                                });
-                              },
-                            )),
-                      )
-                    :
-                    //Container of Label
-                    SizedBox(
-                        key: ValueKey("align"),
-                        height: 60,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            widget.label,
-                            style: widget.labelStyle,
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
+              // show different animation base on key
+              if (child.key == ValueKey("textF")) {
+                return ClipRect(
+                  child: SlideTransition(position: inAnimation, child: child),
+                );
+              } else {
+                return ClipRect(
+                  child: SlideTransition(position: outAnimation, child: child),
+                );
+              }
+            },
+            child: _isSearch
+                ?
+                //Container of SearchView
+                SizedBox(
+                    key: ValueKey("textF"),
+                    height: 60,
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextFormField(
+                          focusNode: _fnSearch,
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.search,
+                          textAlign: widget.alignment,
+                          style: widget.searchStyle,
+                          minLines: 1,
+                          maxLines: 1,
+                          cursorColor:
+                              widget.cursorColor ?? ThemeData().primaryColor,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: widget.searchDecoration,
+                          onChanged: (value) {
+                            _debouncer.run(() {
+                              widget.onChanged(value);
+                            });
+                          },
+                        )),
+                  )
+                :
+                //Container of Label
+                SizedBox(
+                    key: ValueKey("align"),
+                    height: 60,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.label,
+                        style: widget.labelStyle,
+                        textAlign: TextAlign.start,
                       ),
-              )),
+                    ),
+                  ),
+          )),
           // Handle Animated Change view for Search Icon and Close Icon
-          Expanded(
-            flex: 10,
-            child:
-                //use icon button to switch status
-                IconButton(
-              icon:
-                  // Use animated Switcher to show animation in transition widget
-                  AnimatedSwitcher(
-                duration: Duration(milliseconds: 350),
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  //animated from top to bottom
-                  final inAnimation = Tween<Offset>(
-                          begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
-                      .animate(animation);
-                  //animated from bottom to top
-                  final outAnimation = Tween<Offset>(
-                          begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
-                      .animate(animation);
+          IconButton(
+            icon:
+                // Use animated Switcher to show animation in transition widget
+                AnimatedSwitcher(
+              duration: Duration(milliseconds: 350),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                //animated from top to bottom
+                final inAnimation = Tween<Offset>(
+                        begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
+                    .animate(animation);
+                //animated from bottom to top
+                final outAnimation = Tween<Offset>(
+                        begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
+                    .animate(animation);
 
-                  // show different animation base on key
-                  if (child.key == ValueKey("close")) {
-                    return ClipRect(
-                      child: SlideTransition(
-                        position: inAnimation,
-                        child: child,
-                      ),
-                    );
-                  } else {
-                    return ClipRect(
-                      child:
-                          SlideTransition(position: outAnimation, child: child),
-                    );
-                  }
-                },
-                child: _isSearch
-                    ?
-                    //if is search, set icon as Close
-                    Icon(
-                        Icons.close,
-                        key: ValueKey("close"),
-                      ) //if is !search, set icon as Search
-                    : Icon(Icons.search, key: ValueKey("search")),
-              ),
-              onPressed: () {
-                setState(() {
-                  _isSearch = !_isSearch;
-                  if (!_isSearch) widget.onChanged("");
-                  if (_isSearch) _fnSearch.requestFocus();
-                });
+                // show different animation base on key
+                if (child.key == ValueKey("close")) {
+                  return ClipRect(
+                    child: SlideTransition(
+                      position: inAnimation,
+                      child: child,
+                    ),
+                  );
+                } else {
+                  return ClipRect(
+                    child:
+                        SlideTransition(position: outAnimation, child: child),
+                  );
+                }
               },
+              child: _isSearch
+                  ?
+                  //if is search, set icon as Close
+                  Icon(
+                      Icons.close,
+                      key: ValueKey("close"),
+                    ) //if is !search, set icon as Search
+                  : Icon(Icons.search, key: ValueKey("search")),
             ),
-          )
+            onPressed: () {
+              setState(() {
+                _isSearch = !_isSearch;
+                if (!_isSearch) widget.onChanged("");
+                if (_isSearch) _fnSearch.requestFocus();
+              });
+            },
+          ),
         ],
       ),
     );

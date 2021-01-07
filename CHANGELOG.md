@@ -17,3 +17,6 @@
 
 ## 1.2.0
 * Added feature - Debouncer to detect when you stop typing
+
+## 1.3.0
+* Fix issue when resize width

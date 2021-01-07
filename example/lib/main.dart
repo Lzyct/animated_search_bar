@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:animated_search_bar/animated_search_bar.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
