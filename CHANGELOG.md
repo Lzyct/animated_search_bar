@@ -20,3 +20,6 @@
 
 ## 1.3.0
 * Fix issue when resize width
+
+## 2.0.0
+* Migrate to Null Safety

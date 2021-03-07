@@ -16,7 +16,7 @@ class AnimatedSearchBar extends StatefulWidget {
   ///  searchStyle - TextStyle ,isRequired :  No
   ///  cursorColor - Color ,isRequired : No
   const AnimatedSearchBar(
-      {Key key,
+      {Key? key,
       this.label = "",
       this.alignment = TextAlign.start,
       this.onChanged,
@@ -38,12 +38,12 @@ class AnimatedSearchBar extends StatefulWidget {
       : super(key: key);
 
   final String label;
-  final Function(String) onChanged;
+  final Function(String)? onChanged;
   final TextStyle labelStyle;
   final InputDecoration searchDecoration;
   final int animationDuration;
   final TextStyle searchStyle;
-  final Color cursorColor;
+  final Color? cursorColor;
   final TextAlign alignment;
   final Duration duration;
 
@@ -122,7 +122,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                           decoration: widget.searchDecoration,
                           onChanged: (value) {
                             _debouncer.run(() {
-                              widget.onChanged(value);
+                              widget.onChanged!(value);
                             });
                           },
                         )),
@@ -185,7 +185,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
             onPressed: () {
               setState(() {
                 _isSearch = !_isSearch;
-                if (!_isSearch) widget.onChanged("");
+                if (!_isSearch) widget.onChanged!("");
                 if (_isSearch) _fnSearch.requestFocus();
               });
             },
