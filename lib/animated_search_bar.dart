@@ -15,27 +15,35 @@ class AnimatedSearchBar extends StatefulWidget {
   ///  animationDuration in milliseconds -  int ,isRequired : No
   ///  searchStyle - TextStyle ,isRequired :  No
   ///  cursorColor - Color ,isRequired : No
-  const AnimatedSearchBar(
-      {Key? key,
-      this.label = "",
-      this.alignment = TextAlign.start,
-      this.onChanged,
-      this.labelStyle = const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.bold,
-      ),
-      this.searchDecoration = const InputDecoration(
-          labelText: "Search",
-          alignLabelWithHint: true,
-          contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-          border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              gapPadding: 4)),
-      this.animationDuration = 350,
-      this.searchStyle = const TextStyle(color: Colors.black),
-      this.cursorColor,
-      this.duration = const Duration(milliseconds: 300)})
-      : super(key: key);
+  ///  duration - Duration for debouncher
+  ///
+  const AnimatedSearchBar({
+    Key? key,
+    this.label = "",
+    this.alignment = TextAlign.start,
+    this.onChanged,
+    this.labelStyle = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    ),
+    this.searchDecoration = const InputDecoration(
+        labelText: "Search",
+        alignLabelWithHint: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+        border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)), gapPadding: 4)),
+    this.animationDuration = 350,
+    this.searchStyle = const TextStyle(color: Colors.black),
+    this.cursorColor,
+    this.duration = const Duration(milliseconds: 300),
+    this.height = 60,
+
+    /// Value key must set with value close
+    this.closeIcon = const Icon(Icons.close, key: ValueKey("close")),
+
+    /// Value key must set with value search
+    this.searchIcon = const Icon(Icons.search, key: ValueKey("search")),
+  }) : super(key: key);
 
   final String label;
   final Function(String)? onChanged;
@@ -46,6 +54,9 @@ class AnimatedSearchBar extends StatefulWidget {
   final Color? cursorColor;
   final TextAlign alignment;
   final Duration duration;
+  final double height;
+  final Widget closeIcon;
+  final Widget searchIcon;
 
   @override
   _AnimatedSearchBarState createState() => _AnimatedSearchBarState();
@@ -105,7 +116,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                 //Container of SearchView
                 SizedBox(
                     key: ValueKey("textF"),
-                    height: 60,
+                    height: widget.height,
                     child: Align(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
@@ -176,11 +187,9 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               child: _isSearch
                   ?
                   //if is search, set icon as Close
-                  Icon(
-                      Icons.close,
-                      key: ValueKey("close"),
-                    ) //if is !search, set icon as Search
-                  : Icon(Icons.search, key: ValueKey("search")),
+                  widget.closeIcon
+                  //if is !search, set icon as Search
+                  : widget.searchIcon,
             ),
             onPressed: () {
               setState(() {
