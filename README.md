@@ -2,8 +2,7 @@
 
 A Beautiful and Simple SearchBar widget with animation transition. It can be fully customized with label, labelStyle,
 searchDecoration, etc. It also maintains onChange state.
-![Farmers Market Finder Demo](https://github.com/ukieTux/animated_search_bar/blob/master/gifs/app_bar.gif)
-![Farmers Market Finder Demo](https://github.com/ukieTux/animated_search_bar/blob/master/gifs/body.gif)
+![Animated Searchbar Demo](gifs/new.gif)
 
 ## Getting Started
 

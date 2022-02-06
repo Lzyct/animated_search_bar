@@ -29,3 +29,6 @@
   * height
   * closeIcon
   * searchIcon
+
+## 2.2.0
+* Clear text first then hide searchBar when user press X button
