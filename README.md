@@ -27,22 +27,24 @@ AnimatedSearchBar(
     setState(() {
       searchText = value;
     });
-}, ),
+  },
+),
 ```
   ## Available Parameters
-| Param | isRequired |
-|--|--|
-| **String** label | No |
-| **Function(String)** onChanged | No |
-| **TextStyle** labelStyle | No |
-| **InputDecoration** searchDecoration | No |
-| **int** animationDuration *in milliseconds* | No |
-| **TextStyle** searchStyle | No |
-| **Color** cursorColor | No |
-| **Duration** duration , *debouncer duration default 300ms*| No |
-| **double** height , *default 60*| No |
-| **Widget** closeIcon , *default const Icon(Icons.close, key: ValueKey("close"))*| No |
-| **Widget** searchIcon , *default const Icon(Icons.search, key: ValueKey("search"))*| No |
+
+| Param                                                                               | isRequired |
+|-------------------------------------------------------------------------------------|------------|
+| **String** label                                                                    | No         |
+| **Function(String)** onChanged                                                      | No         |
+| **TextStyle** labelStyle                                                            | No         |
+| **InputDecoration** searchDecoration                                                | No         |
+| **int** animationDuration *in milliseconds*                                         | No         |
+| **TextStyle** searchStyle                                                           | No         |
+| **Color** cursorColor                                                               | No         |
+| **Duration** duration , *debouncer duration default 300ms*                          | No         |
+| **double** height , *default 60*                                                    | No         |
+| **Widget** closeIcon , *default const Icon(Icons.close, key: ValueKey("close"))*    | No         |
+| **Widget** searchIcon , *default const Icon(Icons.search, key: ValueKey("search"))* | No         |
 
 ---
 <h3 align="center">Buy me coffee if you love my works ☕️</h3> <p align="center">
