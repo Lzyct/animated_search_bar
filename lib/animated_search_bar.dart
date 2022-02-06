@@ -195,6 +195,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
             ),
             onPressed: () {
               setState(() {
+                /// Check if search active and it's not empty
                 if (_isSearch && _conSearch.text.isNotEmpty) {
                   _conSearch.clear();
                   widget.onChanged!(_conSearch.text);
