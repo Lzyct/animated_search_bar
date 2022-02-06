@@ -15,7 +15,7 @@ class AnimatedSearchBar extends StatefulWidget {
   ///  animationDuration in milliseconds -  int ,isRequired : No
   ///  searchStyle - TextStyle ,isRequired :  No
   ///  cursorColor - Color ,isRequired : No
-  ///  duration - Duration for debouncher
+  ///  duration - Duration for debouncer
   ///
   const AnimatedSearchBar({
     Key? key,
@@ -64,8 +64,9 @@ class AnimatedSearchBar extends StatefulWidget {
 
 class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
   bool _isSearch = false;
-  var _fnSearch = FocusNode();
-  var _debouncer = Debouncer();
+  final _fnSearch = FocusNode();
+  final _debouncer = Debouncer();
+  final _conSearch = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
         children: [
           // Handle Animated Change view for Title and TextField Search
           Expanded(
-              // Use animated Switcher to show animation in transition widget
+            // Use animated Switcher to show animation in transition widget
               child: AnimatedSwitcher(
             duration: Duration(milliseconds: widget.animationDuration),
             transitionBuilder: (Widget child, Animation<double> animation) {
@@ -121,6 +122,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
                           focusNode: _fnSearch,
+                          controller: _conSearch,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.search,
                           textAlign: widget.alignment,
@@ -193,9 +195,14 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
             ),
             onPressed: () {
               setState(() {
-                _isSearch = !_isSearch;
-                if (!_isSearch) widget.onChanged!("");
-                if (_isSearch) _fnSearch.requestFocus();
+                if (_isSearch && _conSearch.text.isNotEmpty) {
+                  _conSearch.clear();
+                  widget.onChanged!(_conSearch.text);
+                } else {
+                  _isSearch = !_isSearch;
+                  if (!_isSearch) widget.onChanged!(_conSearch.text);
+                  if (_isSearch) _fnSearch.requestFocus();
+                }
               });
             },
           ),
