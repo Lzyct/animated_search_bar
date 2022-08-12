@@ -43,6 +43,7 @@ class AnimatedSearchBar extends StatefulWidget {
 
     /// Value key must set with value search
     this.searchIcon = const Icon(Icons.search, key: ValueKey("search")),
+    this.controller,
   }) : super(key: key);
 
   final String label;
@@ -57,6 +58,7 @@ class AnimatedSearchBar extends StatefulWidget {
   final double height;
   final Widget closeIcon;
   final Widget searchIcon;
+  final TextEditingController? controller;
 
   @override
   _AnimatedSearchBarState createState() => _AnimatedSearchBarState();
@@ -66,7 +68,14 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
   bool _isSearch = false;
   final _fnSearch = FocusNode();
   final _debouncer = Debouncer();
-  final _conSearch = TextEditingController();
+  late TextEditingController _conSearch;
+
+  @override
+  void initState() {
+    super.initState();
+    _conSearch = widget.controller ?? TextEditingController();
+    _isSearch = _conSearch.text.isNotEmpty;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +97,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
         children: [
           // Handle Animated Change view for Title and TextField Search
           Expanded(
-            // Use animated Switcher to show animation in transition widget
+              // Use animated Switcher to show animation in transition widget
               child: AnimatedSwitcher(
             duration: Duration(milliseconds: widget.animationDuration),
             transitionBuilder: (Widget child, Animation<double> animation) {

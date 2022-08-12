@@ -44,6 +44,7 @@ AnimatedSearchBar(
 | **double** height , *default 60*                                                    | No         |
 | **Widget** closeIcon , *default const Icon(Icons.close, key: ValueKey("close"))*    | No         |
 | **Widget** searchIcon , *default const Icon(Icons.search, key: ValueKey("search"))* | No         |
+| **TextEditingController** controller                                                | No         |
 
 ---
 <h3 align="center">Buy me coffee if you love my works ☕️</h3> <p align="center">
