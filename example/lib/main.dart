@@ -12,6 +12,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String searchText = "";
+  TextEditingController _controller =
+      TextEditingController(text: "Initial Text");
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: AnimatedSearchBar(
             label: "Search Something Here",
+            controller: _controller,
             labelStyle: TextStyle(fontSize: 16),
             searchStyle: TextStyle(color: Colors.white),
             cursorColor: Colors.white,

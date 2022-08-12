@@ -32,3 +32,6 @@
 
 ## 2.2.0
 * Clear text first then hide searchBar when user press X button
+
+## 2.1.0
+* Expose TextEditController
