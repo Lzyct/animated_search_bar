@@ -35,3 +35,6 @@
 
 ## 2.3.0
 * Expose TextEditController
+
+## 2.4.0
+* ability to align the label #7 Thanks to [LukeStoneHm](https://github.com/LukeStonehm)
