@@ -1,7 +1,7 @@
 name: animated_search_bar
 description: A Beautiful and Simple SearchBar widget with animation transition. It can be fully customized with label, labelStyle, searchDecoration, etc. It also maintains onChange state.
-version: 2.3.1-tf
-homepage: https://github.com/LukeStonehm/animated_search_bar
+version: 2.3.0
+homepage: https://github.com/ukieTux/animated_search_bar
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
