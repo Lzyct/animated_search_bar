@@ -73,7 +73,7 @@ class AnimatedSearchBar extends StatefulWidget {
 
 class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
   bool _isSearch = false;
-  FocusNode _fnSearch = FocusNode();
+  final _fnSearch = FocusNode();
   final _debouncer = Debouncer();
   late TextEditingController _conSearch;
 
