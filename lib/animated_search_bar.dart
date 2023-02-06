@@ -47,7 +47,7 @@ class AnimatedSearchBar extends StatefulWidget {
       /// Value key must set with value search
       this.searchIcon = const Icon(Icons.search, key: ValueKey("search")),
       this.controller,
-      this.fnSearch})
+      this.focusNode})
       : super(key: key);
 
   final String label;
@@ -65,7 +65,7 @@ class AnimatedSearchBar extends StatefulWidget {
   final Widget closeIcon;
   final Widget searchIcon;
   final TextEditingController? controller;
-  final FocusNode? fnSearch;
+  final FocusNode? focusNode;
 
   @override
   _AnimatedSearchBarState createState() => _AnimatedSearchBarState();
@@ -82,8 +82,8 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
     super.initState();
     _conSearch = widget.controller ?? TextEditingController();
     _isSearch = _conSearch.text.isNotEmpty;
-    if (widget.fnSearch != null) {
-      _fnSearch = widget.fnSearch!;
+    if (widget.focusNode != null) {
+      _fnSearch = widget.focusNode!;
     }
   }
 
