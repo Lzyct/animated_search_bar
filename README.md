@@ -36,6 +36,8 @@ AnimatedSearchBar(
 | **String** label                                                                    | No         |
 | **Function(String)** onChanged                                                      | No         |
 | **TextStyle** labelStyle                                                            | No         |
+| **Alignment** labelAlignment                                                        | No         |
+| **TextAlign** labelTextAlign                                                        | No         |
 | **InputDecoration** searchDecoration                                                | No         |
 | **int** animationDuration *in milliseconds*                                         | No         |
 | **TextStyle** searchStyle                                                           | No         |

@@ -20,6 +20,8 @@ class AnimatedSearchBar extends StatefulWidget {
   const AnimatedSearchBar({
     Key? key,
     this.label = "",
+    this.labelAlignment = Alignment.centerLeft,
+    this.labelTextAlign = TextAlign.start,
     this.alignment = TextAlign.start,
     this.onChanged,
     this.labelStyle = const TextStyle(
@@ -47,6 +49,8 @@ class AnimatedSearchBar extends StatefulWidget {
   }) : super(key: key);
 
   final String label;
+  final Alignment labelAlignment;
+  final TextAlign labelTextAlign;
   final Function(String)? onChanged;
   final TextStyle labelStyle;
   final InputDecoration searchDecoration;
@@ -155,11 +159,11 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                     key: ValueKey("align"),
                     height: 60,
                     child: Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: widget.labelAlignment,
                       child: Text(
                         widget.label,
                         style: widget.labelStyle,
-                        textAlign: TextAlign.start,
+                        textAlign: widget.labelTextAlign,
                       ),
                     ),
                   ),
