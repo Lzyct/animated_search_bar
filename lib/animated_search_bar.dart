@@ -17,36 +17,38 @@ class AnimatedSearchBar extends StatefulWidget {
   ///  cursorColor - Color ,isRequired : No
   ///  duration - Duration for debouncer
   ///
-  const AnimatedSearchBar({
-    Key? key,
-    this.label = "",
-    this.labelAlignment = Alignment.centerLeft,
-    this.labelTextAlign = TextAlign.start,
-    this.alignment = TextAlign.start,
-    this.onChanged,
-    this.labelStyle = const TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.bold,
-    ),
-    this.searchDecoration = const InputDecoration(
-        labelText: "Search",
-        alignLabelWithHint: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-        border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)), gapPadding: 4)),
-    this.animationDuration = 350,
-    this.searchStyle = const TextStyle(color: Colors.black),
-    this.cursorColor,
-    this.duration = const Duration(milliseconds: 300),
-    this.height = 60,
+  const AnimatedSearchBar(
+      {Key? key,
+      this.label = "",
+      this.labelAlignment = Alignment.centerLeft,
+      this.labelTextAlign = TextAlign.start,
+      this.alignment = TextAlign.start,
+      this.onChanged,
+      this.labelStyle = const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+      ),
+      this.searchDecoration = const InputDecoration(
+          labelText: "Search",
+          alignLabelWithHint: true,
+          contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              gapPadding: 4)),
+      this.animationDuration = 350,
+      this.searchStyle = const TextStyle(color: Colors.black),
+      this.cursorColor,
+      this.duration = const Duration(milliseconds: 300),
+      this.height = 60,
 
-    /// Value key must set with value close
-    this.closeIcon = const Icon(Icons.close, key: ValueKey("close")),
+      /// Value key must set with value close
+      this.closeIcon = const Icon(Icons.close, key: ValueKey("close")),
 
-    /// Value key must set with value search
-    this.searchIcon = const Icon(Icons.search, key: ValueKey("search")),
-    this.controller,
-  }) : super(key: key);
+      /// Value key must set with value search
+      this.searchIcon = const Icon(Icons.search, key: ValueKey("search")),
+      this.controller,
+      this.autoFocus = false})
+      : super(key: key);
 
   final String label;
   final Alignment labelAlignment;
@@ -63,6 +65,7 @@ class AnimatedSearchBar extends StatefulWidget {
   final Widget closeIcon;
   final Widget searchIcon;
   final TextEditingController? controller;
+  final bool autoFocus;
 
   @override
   _AnimatedSearchBarState createState() => _AnimatedSearchBarState();
@@ -79,6 +82,11 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
     super.initState();
     _conSearch = widget.controller ?? TextEditingController();
     _isSearch = _conSearch.text.isNotEmpty;
+
+    if (widget.autoFocus) {
+      _isSearch = true;
+      _fnSearch.requestFocus();
+    }
   }
 
   @override
