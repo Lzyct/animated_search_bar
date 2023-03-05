@@ -10,13 +10,14 @@ In the `pubspec.yaml` of your flutter project, add the following dependency:
 
  ```yaml dependencies:
  ... animated_search_bar: "^latest_version"
- ``` Import it:
- ```dart import 'package:animated_search_bar/animated_search_bar.dart';
 ```
 
 ## Usage Examples
 
- ```
+```dart
+import 'package:animated_search_bar/animated_search_bar.dart';
+
+
 String searchText="";
 
 AnimatedSearchBar(
@@ -47,6 +48,8 @@ AnimatedSearchBar(
 | **Widget** closeIcon , *default const Icon(Icons.close, key: ValueKey("close"))*    | No         |
 | **Widget** searchIcon , *default const Icon(Icons.search, key: ValueKey("search"))* | No         |
 | **TextEditingController** controller                                                | No         |
+| **Function(String)** onFieldSubmitted                                               | No         |
+| **TextInputAction** textInputAction  *default TextInputAction.search*               | No         |
 
 ---
 <h3 align="center">Buy me coffee if you love my works ☕️</h3> <p align="center">

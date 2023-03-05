@@ -38,3 +38,6 @@
 
 ## 2.4.0
 * ability to align the label #7 Thanks to [LukeStoneHm](https://github.com/LukeStonehm)
+
+## 2.5.0
+* Expose onFieldSubmitted and TextInputAction #9
