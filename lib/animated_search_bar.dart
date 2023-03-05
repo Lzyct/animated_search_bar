@@ -46,6 +46,8 @@ class AnimatedSearchBar extends StatefulWidget {
     /// Value key must set with value search
     this.searchIcon = const Icon(Icons.search, key: ValueKey("search")),
     this.controller,
+    this.onFieldSubmitted,
+    this.textInputAction = TextInputAction.search,
   }) : super(key: key);
 
   final String label;
@@ -63,6 +65,8 @@ class AnimatedSearchBar extends StatefulWidget {
   final Widget closeIcon;
   final Widget searchIcon;
   final TextEditingController? controller;
+  final Function(String)? onFieldSubmitted;
+  final TextInputAction textInputAction;
 
   @override
   _AnimatedSearchBarState createState() => _AnimatedSearchBarState();
@@ -137,7 +141,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                           focusNode: _fnSearch,
                           controller: _conSearch,
                           keyboardType: TextInputType.text,
-                          textInputAction: TextInputAction.search,
+                          textInputAction: widget.textInputAction,
                           textAlign: widget.alignment,
                           style: widget.searchStyle,
                           minLines: 1,
@@ -151,6 +155,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                               widget.onChanged!(value);
                             });
                           },
+                          onFieldSubmitted: widget.onFieldSubmitted,
                         )),
                   )
                 :
