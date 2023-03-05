@@ -21,26 +21,32 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: AnimatedSearchBar(
-            label: "Search Something Here",
-            controller: _controller,
-            labelStyle: TextStyle(fontSize: 16),
-            searchStyle: TextStyle(color: Colors.white),
-            cursorColor: Colors.white,
-            searchDecoration: InputDecoration(
-              hintText: "Search",
-              alignLabelWithHint: true,
-              fillColor: Colors.white,
-              focusColor: Colors.white,
-              hintStyle: TextStyle(color: Colors.white70),
-              border: InputBorder.none,
-            ),
-            onChanged: (value) {
-              print("value on Change");
-              setState(() {
-                searchText = value;
-              });
-            },
-          ),
+              label: "Search Something Here",
+              controller: _controller,
+              labelStyle: TextStyle(fontSize: 16),
+              searchStyle: TextStyle(color: Colors.white),
+              cursorColor: Colors.white,
+              textInputAction: TextInputAction.done,
+              searchDecoration: InputDecoration(
+                hintText: "Search",
+                alignLabelWithHint: true,
+                fillColor: Colors.white,
+                focusColor: Colors.white,
+                hintStyle: TextStyle(color: Colors.white70),
+                border: InputBorder.none,
+              ),
+              onChanged: (value) {
+                print("value on Change");
+                setState(() {
+                  searchText = value;
+                });
+              },
+              onFieldSubmitted: (value) {
+                print("value on Field Submitted");
+                setState(() {
+                  searchText = value;
+                });
+              }),
         ),
         body: Padding(
           padding: EdgeInsets.all(16),
