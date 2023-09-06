@@ -133,7 +133,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               /// Use ValueListenableBuilder to handle change view
               child: ValueListenableBuilder(
                 valueListenable: _isSearch,
-                builder: (_, value, __) {
+                builder: (_, bool value, __) {
                   return value
                       ?
                       //Container of SearchView
@@ -216,7 +216,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               /// Use ValueListenableBuilder to handle change view
               child: ValueListenableBuilder(
                 valueListenable: _isSearch,
-                builder: (_, value, __) {
+                builder: (_, bool value, __) {
                   return value ? widget.closeIcon : widget.searchIcon;
                 },
               ),
