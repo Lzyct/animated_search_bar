@@ -41,3 +41,8 @@
 
 ## 2.5.0
 * Expose onFieldSubmitted and TextInputAction #9
+
+## 2.6.0
+* Replace setState with ValueNotifier
+* Add new unit test
+* Update example to null safety
