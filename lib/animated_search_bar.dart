@@ -19,7 +19,7 @@ class AnimatedSearchBar extends StatefulWidget {
   ///
   const AnimatedSearchBar({
     Key? key,
-    this.label = "",
+    this.label = '',
     this.labelAlignment = Alignment.centerLeft,
     this.labelTextAlign = TextAlign.start,
     this.alignment = TextAlign.start,
@@ -29,11 +29,11 @@ class AnimatedSearchBar extends StatefulWidget {
       fontWeight: FontWeight.bold,
     ),
     this.searchDecoration = const InputDecoration(
-        labelText: "Search",
+        labelText: 'Search',
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-        border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)), gapPadding: 4)),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)))),
     this.animationDuration = 350,
     this.searchStyle = const TextStyle(color: Colors.black),
     this.cursorColor,
@@ -41,10 +41,10 @@ class AnimatedSearchBar extends StatefulWidget {
     this.height = 60,
 
     /// Value key must set with value close
-    this.closeIcon = const Icon(Icons.close, key: ValueKey("close")),
+    this.closeIcon = const Icon(Icons.close, key: ValueKey('close')),
 
     /// Value key must set with value search
-    this.searchIcon = const Icon(Icons.search, key: ValueKey("search")),
+    this.searchIcon = const Icon(Icons.search, key: ValueKey('search')),
     this.controller,
     this.onFieldSubmitted,
     this.textInputAction = TextInputAction.search,
@@ -74,7 +74,7 @@ class AnimatedSearchBar extends StatefulWidget {
 
 class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
   /// Value notifier to handle change view
-  ValueNotifier<bool> _isSearch = ValueNotifier(false);
+  final ValueNotifier<bool> _isSearch = ValueNotifier(false);
   final _fnSearch = FocusNode();
   final _debouncer = Debouncer();
   late TextEditingController _conSearch;
@@ -100,7 +100,6 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // Handle Animated Change view for Title and TextField Search
           Expanded(
@@ -110,15 +109,17 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               transitionBuilder: (Widget child, Animation<double> animation) {
                 //animated from right to left
                 final inAnimation = Tween<Offset>(
-                        begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0))
+                        begin: const Offset(1.0, 0.0),
+                        end: const Offset(0.0, 0.0))
                     .animate(animation);
                 //animated from left to right
                 final outAnimation = Tween<Offset>(
-                        begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0))
+                        begin: const Offset(-1.0, 0.0),
+                        end: const Offset(0.0, 0.0))
                     .animate(animation);
 
                 // show different animation base on key
-                if (child.key == ValueKey("textF")) {
+                if (child.key == const ValueKey('textF')) {
                   return ClipRect(
                     child: SlideTransition(position: inAnimation, child: child),
                   );
@@ -138,7 +139,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                       ?
                       //Container of SearchView
                       SizedBox(
-                          key: ValueKey("textF"),
+                          key: const ValueKey('textF'),
                           height: widget.height,
                           child: Align(
                               alignment: Alignment.centerLeft,
@@ -150,7 +151,6 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                                 textAlign: widget.alignment,
                                 style: widget.searchStyle,
                                 minLines: 1,
-                                maxLines: 1,
                                 cursorColor: widget.cursorColor ??
                                     ThemeData().primaryColor,
                                 textAlignVertical: TextAlignVertical.center,
@@ -166,7 +166,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                       :
                       //Container of Label
                       SizedBox(
-                          key: ValueKey("align"),
+                          key: const ValueKey('align'),
                           height: 60,
                           child: Align(
                             alignment: widget.labelAlignment,
@@ -186,19 +186,21 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
             icon:
                 // Use animated Switcher to show animation in transition widget
                 AnimatedSwitcher(
-              duration: Duration(milliseconds: 350),
+              duration: const Duration(milliseconds: 350),
               transitionBuilder: (Widget child, Animation<double> animation) {
                 //animated from top to bottom
                 final inAnimation = Tween<Offset>(
-                        begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
+                        begin: const Offset(0.0, 1.0),
+                        end: const Offset(0.0, 0.0))
                     .animate(animation);
                 //animated from bottom to top
                 final outAnimation = Tween<Offset>(
-                        begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
+                        begin: const Offset(0.0, -1.0),
+                        end: const Offset(0.0, 0.0))
                     .animate(animation);
 
                 // show different animation base on key
-                if (child.key == ValueKey("close")) {
+                if (child.key == const ValueKey('close')) {
                   return ClipRect(
                     child: SlideTransition(
                       position: inAnimation,

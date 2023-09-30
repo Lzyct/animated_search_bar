@@ -4,16 +4,16 @@ import 'package:flutter/foundation.dart';
 
 /// Use debouncer to detect user not in typing
 class Debouncer {
+  Debouncer({this.duration});
+
   Duration? duration;
   VoidCallback? action;
   Timer? _timer;
 
-  Debouncer({this.duration});
-
-  run(VoidCallback action) {
+  void run(VoidCallback action) {
     if (_timer != null) {
       _timer!.cancel();
     }
-    _timer = Timer(duration ?? Duration(milliseconds: 300), action);
+    _timer = Timer(duration ?? const Duration(milliseconds: 300), action);
   }
 }

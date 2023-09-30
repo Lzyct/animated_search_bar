@@ -23,7 +23,7 @@ String searchText="";
 AnimatedSearchBar(
   label: "Search Something Here",
   onChanged: (value) {
-    print("value on Change");
+    debugPrint("value on Change");
     setState(() {
       searchText = value;
     });
