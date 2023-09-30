@@ -46,3 +46,6 @@
 * Replace setState with ValueNotifier
 * Add new unit test
 * Update example to null safety
+
+## 2.7.0
+* Documented the Code and Optimised it based on Flutter Lints Rules #12 Thanks to [jinosh05](https://github.com/jinosh05)
