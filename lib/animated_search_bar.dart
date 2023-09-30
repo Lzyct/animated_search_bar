@@ -1,50 +1,56 @@
 import 'package:animated_search_bar/debouncer.dart';
 import 'package:flutter/material.dart';
 
-///*********************************************
-/// Created by ukietux on 22/09/20 with ♥
-/// (>’_’)> email : ukie.tux@gmail.com
-/// github : https://www.github.com/ukieTux <(’_’<)
-///*********************************************
-/// © 2020 | All Right Reserved
+/// A customizable animated search bar widget for Flutter applications.
 class AnimatedSearchBar extends StatefulWidget {
-  ///  label - String ,isRequired : No
-  ///  onChanged - Function(String)  ,isRequired : No
-  ///  labelStyle - TextStyle ,isRequired :  No
-  ///  searchDecoration - InputDecoration  ,isRequired : No
-  ///  animationDuration in milliseconds -  int ,isRequired : No
-  ///  searchStyle - TextStyle ,isRequired :  No
-  ///  cursorColor - Color ,isRequired : No
-  ///  duration - Duration for debouncer
+  /// Creates an `AnimatedSearchBar` widget.
   ///
+  /// [label] is the text to display when the search bar is not active.
+  /// [labelAlignment] specifies the alignment of the label text.
+  /// [labelTextAlign] specifies the text alignment of the label.
+  /// [onChanged] is a callback function that is called,
+  ///    when the text in the search bar changes.
+  /// [labelStyle] is the style for the label text.
+  /// [searchDecoration] is the decoration for the search input field.
+  /// [animationDuration] is the duration for the animation,
+  ///   when switching between label and search input.
+  /// [searchStyle] is the style for the search input text.
+  /// [cursorColor] is the color of the cursor in the search input field.
+  /// [duration] is the debounce duration for input changes.
+  /// [height] is the height of the search bar.
+  /// [closeIcon] is the icon to display when the search bar is active.
+  /// [searchIcon] is the icon to display when the search bar is not active.
+  /// [controller] is a TextEditingController to control the text input.
+  /// [onFieldSubmitted] is a callback function that is called
+  ///  when the user submits the search field.
+  /// [textInputAction] is the action to take when the user presses
+  ///   the keyboard's done button.
+
   const AnimatedSearchBar({
     Key? key,
-    this.label = "",
+    this.label = '',
     this.labelAlignment = Alignment.centerLeft,
     this.labelTextAlign = TextAlign.start,
-    this.alignment = TextAlign.start,
     this.onChanged,
     this.labelStyle = const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.bold,
     ),
     this.searchDecoration = const InputDecoration(
-        labelText: "Search",
-        alignLabelWithHint: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-        border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)), gapPadding: 4)),
-    this.animationDuration = 350,
+      labelText: 'Search',
+      alignLabelWithHint: true,
+      contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
+    ),
+    this.animationDuration = const Duration(milliseconds: 350),
     this.searchStyle = const TextStyle(color: Colors.black),
     this.cursorColor,
     this.duration = const Duration(milliseconds: 300),
     this.height = 60,
-
-    /// Value key must set with value close
-    this.closeIcon = const Icon(Icons.close, key: ValueKey("close")),
-
-    /// Value key must set with value search
-    this.searchIcon = const Icon(Icons.search, key: ValueKey("search")),
+    this.closeIcon = const Icon(Icons.close, key: ValueKey('close')),
+    this.searchIcon = const Icon(Icons.search, key: ValueKey('search')),
     this.controller,
     this.onFieldSubmitted,
     this.textInputAction = TextInputAction.search,
@@ -56,10 +62,9 @@ class AnimatedSearchBar extends StatefulWidget {
   final Function(String)? onChanged;
   final TextStyle labelStyle;
   final InputDecoration searchDecoration;
-  final int animationDuration;
+  final Duration animationDuration;
   final TextStyle searchStyle;
   final Color? cursorColor;
-  final TextAlign alignment;
   final Duration duration;
   final double height;
   final Widget closeIcon;
@@ -73,10 +78,10 @@ class AnimatedSearchBar extends StatefulWidget {
 }
 
 class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
-  /// Value notifier to handle change view
-  ValueNotifier<bool> _isSearch = ValueNotifier(false);
+  final ValueNotifier<bool> _isSearch = ValueNotifier(false);
   final _fnSearch = FocusNode();
   final _debouncer = Debouncer();
+
   late TextEditingController _conSearch;
 
   @override
@@ -84,13 +89,11 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
     super.initState();
     _conSearch = widget.controller ?? TextEditingController();
     _isSearch.value = _conSearch.text.isNotEmpty;
+    _debouncer.delay = widget.duration;
   }
 
   @override
   Widget build(BuildContext context) {
-    _debouncer.duration = widget.duration;
-
-    // Use row as Root view
     return GestureDetector(
       onTap: () {
         if (!_isSearch.value) {
@@ -100,73 +103,61 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Handle Animated Change view for Title and TextField Search
           Expanded(
-            // Use animated Switcher to show animation in transition widget
             child: AnimatedSwitcher(
-              duration: Duration(milliseconds: widget.animationDuration),
+              duration: widget.animationDuration,
               transitionBuilder: (Widget child, Animation<double> animation) {
-                //animated from right to left
                 final inAnimation = Tween<Offset>(
-                        begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0))
-                    .animate(animation);
-                //animated from left to right
+                  begin: const Offset(1.0, 0.0),
+                  end: const Offset(0.0, 0.0),
+                ).animate(animation);
                 final outAnimation = Tween<Offset>(
-                        begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0))
-                    .animate(animation);
+                  begin: const Offset(-1.0, 0.0),
+                  end: const Offset(0.0, 0.0),
+                ).animate(animation);
 
-                // show different animation base on key
-                if (child.key == ValueKey("textF")) {
-                  return ClipRect(
-                    child: SlideTransition(position: inAnimation, child: child),
-                  );
-                } else {
-                  return ClipRect(
-                    child:
-                        SlideTransition(position: outAnimation, child: child),
-                  );
-                }
+                return ClipRect(
+                  child: SlideTransition(
+                    position: child.key == const ValueKey('textF')
+                        ? inAnimation
+                        : outAnimation,
+                    child: child,
+                  ),
+                );
               },
-
-              /// Use ValueListenableBuilder to handle change view
               child: ValueListenableBuilder(
                 valueListenable: _isSearch,
                 builder: (_, bool value, __) {
                   return value
-                      ?
-                      //Container of SearchView
-                      SizedBox(
-                          key: ValueKey("textF"),
+                      ? SizedBox(
+                          key: const ValueKey('textF'),
                           height: widget.height,
                           child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: TextFormField(
-                                focusNode: _fnSearch,
-                                controller: _conSearch,
-                                keyboardType: TextInputType.text,
-                                textInputAction: widget.textInputAction,
-                                textAlign: widget.alignment,
-                                style: widget.searchStyle,
-                                minLines: 1,
-                                maxLines: 1,
-                                cursorColor: widget.cursorColor ??
-                                    ThemeData().primaryColor,
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: widget.searchDecoration,
-                                onChanged: (value) {
-                                  _debouncer.run(() {
-                                    widget.onChanged!(value);
-                                  });
-                                },
-                                onFieldSubmitted: widget.onFieldSubmitted,
-                              )),
+                            alignment: Alignment.centerLeft,
+                            child: TextFormField(
+                              focusNode: _fnSearch,
+                              controller: _conSearch,
+                              keyboardType: TextInputType.text,
+                              textInputAction: widget.textInputAction,
+                              textAlign: widget.labelTextAlign,
+                              style: widget.searchStyle,
+                              minLines: 1,
+                              cursorColor: widget.cursorColor ??
+                                  ThemeData().primaryColor,
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: widget.searchDecoration,
+                              onChanged: (value) {
+                                _debouncer.run(() {
+                                  widget.onChanged!(value);
+                                });
+                              },
+                              onFieldSubmitted: widget.onFieldSubmitted,
+                            ),
+                          ),
                         )
-                      :
-                      //Container of Label
-                      SizedBox(
-                          key: ValueKey("align"),
+                      : SizedBox(
+                          key: const ValueKey('align'),
                           height: 60,
                           child: Align(
                             alignment: widget.labelAlignment,
@@ -181,39 +172,28 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               ),
             ),
           ),
-          // Handle Animated Change view for Search Icon and Close Icon
           IconButton(
-            icon:
-                // Use animated Switcher to show animation in transition widget
-                AnimatedSwitcher(
-              duration: Duration(milliseconds: 350),
+            icon: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 350),
               transitionBuilder: (Widget child, Animation<double> animation) {
-                //animated from top to bottom
                 final inAnimation = Tween<Offset>(
-                        begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
-                    .animate(animation);
-                //animated from bottom to top
+                  begin: const Offset(0.0, 1.0),
+                  end: const Offset(0.0, 0.0),
+                ).animate(animation);
                 final outAnimation = Tween<Offset>(
-                        begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
-                    .animate(animation);
+                  begin: const Offset(0.0, -1.0),
+                  end: const Offset(0.0, 0.0),
+                ).animate(animation);
 
-                // show different animation base on key
-                if (child.key == ValueKey("close")) {
-                  return ClipRect(
-                    child: SlideTransition(
-                      position: inAnimation,
-                      child: child,
-                    ),
-                  );
-                } else {
-                  return ClipRect(
-                    child:
-                        SlideTransition(position: outAnimation, child: child),
-                  );
-                }
+                return ClipRect(
+                  child: SlideTransition(
+                    position: child.key == const ValueKey('close')
+                        ? inAnimation
+                        : outAnimation,
+                    child: child,
+                  ),
+                );
               },
-
-              /// Use ValueListenableBuilder to handle change view
               child: ValueListenableBuilder(
                 valueListenable: _isSearch,
                 builder: (_, bool value, __) {
@@ -222,7 +202,6 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               ),
             ),
             onPressed: () {
-              /// Check if search active and it's not empty
               if (_isSearch.value && _conSearch.text.isNotEmpty) {
                 _conSearch.clear();
                 widget.onChanged!(_conSearch.text);

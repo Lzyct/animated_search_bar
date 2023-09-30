@@ -11,9 +11,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String searchText = "";
-  TextEditingController _controller =
-      TextEditingController(text: "Initial Text");
+  String searchText = '';
+  final TextEditingController _controller =
+      TextEditingController(text: 'Initial Text');
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +21,14 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: AnimatedSearchBar(
-              label: "Search Something Here",
+              label: 'Search Something Here',
               controller: _controller,
-              labelStyle: TextStyle(fontSize: 16),
-              searchStyle: TextStyle(color: Colors.white),
+              labelStyle: const TextStyle(fontSize: 16),
+              searchStyle: const TextStyle(color: Colors.white),
               cursorColor: Colors.white,
               textInputAction: TextInputAction.done,
-              searchDecoration: InputDecoration(
-                hintText: "Search",
+              searchDecoration: const InputDecoration(
+                hintText: 'Search',
                 alignLabelWithHint: true,
                 fillColor: Colors.white,
                 focusColor: Colors.white,
@@ -36,26 +36,26 @@ class _MyAppState extends State<MyApp> {
                 border: InputBorder.none,
               ),
               onChanged: (value) {
-                print("value on Change");
+                debugPrint('value on Change');
                 setState(() {
                   searchText = value;
                 });
               },
               onFieldSubmitted: (value) {
-                print("value on Field Submitted");
+                debugPrint('value on Field Submitted');
                 setState(() {
                   searchText = value;
                 });
               }),
         ),
         body: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               AnimatedSearchBar(
-                label: "Search Something Here",
+                label: 'Search Something Here',
                 onChanged: (value) {
-                  print("value on Change");
+                  debugPrint('value on Change');
                   setState(() {
                     searchText = value;
                   });
@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
               ),
               Text(
                 searchText,
-                style: TextStyle(fontSize: 24),
+                style: const TextStyle(fontSize: 24),
               )
             ],
           ),
