@@ -49,3 +49,7 @@
 
 ## 2.7.0
 * Documented the Code and Optimised it based on Flutter Lints Rules #12 Thanks to [jinosh05](https://github.com/jinosh05)
+
+## 2.7.1
+* Fix onChange keep trigger when user close the searchbar
+* Add callback when user close the search

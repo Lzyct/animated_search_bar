@@ -26,35 +26,36 @@ class AnimatedSearchBar extends StatefulWidget {
   /// [textInputAction] is the action to take when the user presses
   ///   the keyboard's done button.
 
-  const AnimatedSearchBar({
-    Key? key,
-    this.label = '',
-    this.labelAlignment = Alignment.centerLeft,
-    this.labelTextAlign = TextAlign.start,
-    this.onChanged,
-    this.labelStyle = const TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.bold,
-    ),
-    this.searchDecoration = const InputDecoration(
-      labelText: 'Search',
-      alignLabelWithHint: true,
-      contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
+  const AnimatedSearchBar(
+      {Key? key,
+      this.label = '',
+      this.labelAlignment = Alignment.centerLeft,
+      this.labelTextAlign = TextAlign.start,
+      this.onChanged,
+      this.labelStyle = const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
       ),
-    ),
-    this.animationDuration = const Duration(milliseconds: 350),
-    this.searchStyle = const TextStyle(color: Colors.black),
-    this.cursorColor,
-    this.duration = const Duration(milliseconds: 300),
-    this.height = 60,
-    this.closeIcon = const Icon(Icons.close, key: ValueKey('close')),
-    this.searchIcon = const Icon(Icons.search, key: ValueKey('search')),
-    this.controller,
-    this.onFieldSubmitted,
-    this.textInputAction = TextInputAction.search,
-  }) : super(key: key);
+      this.searchDecoration = const InputDecoration(
+        labelText: 'Search',
+        alignLabelWithHint: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+      ),
+      this.animationDuration = const Duration(milliseconds: 350),
+      this.searchStyle = const TextStyle(color: Colors.black),
+      this.cursorColor,
+      this.duration = const Duration(milliseconds: 300),
+      this.height = 60,
+      this.closeIcon = const Icon(Icons.close, key: ValueKey('close')),
+      this.searchIcon = const Icon(Icons.search, key: ValueKey('search')),
+      this.controller,
+      this.onFieldSubmitted,
+      this.textInputAction = TextInputAction.search,
+      this.onClose})
+      : super(key: key);
 
   final String label;
   final Alignment labelAlignment;
@@ -72,6 +73,7 @@ class AnimatedSearchBar extends StatefulWidget {
   final TextEditingController? controller;
   final Function(String)? onFieldSubmitted;
   final TextInputAction textInputAction;
+  final VoidCallback? onClose;
 
   @override
   _AnimatedSearchBarState createState() => _AnimatedSearchBarState();
@@ -207,7 +209,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                 widget.onChanged!(_conSearch.text);
               } else {
                 _isSearch.value = !_isSearch.value;
-                if (!_isSearch.value) widget.onChanged!(_conSearch.text);
+                if (!_isSearch.value) widget.onClose?.call();
                 if (_isSearch.value) _fnSearch.requestFocus();
               }
             },
