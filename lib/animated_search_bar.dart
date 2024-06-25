@@ -80,19 +80,13 @@ class AnimatedSearchBar extends StatefulWidget {
 }
 
 class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
-  final ValueNotifier<bool> _isSearch = ValueNotifier(false);
+  late final ValueNotifier<bool> _isSearch =
+      ValueNotifier(_conSearch.text.isNotEmpty);
   final _fnSearch = FocusNode();
-  final _debouncer = Debouncer();
+  late final _debouncer = Debouncer(delay: widget.duration);
 
-  late TextEditingController _conSearch;
-
-  @override
-  void initState() {
-    super.initState();
-    _conSearch = widget.controller ?? TextEditingController();
-    _isSearch.value = _conSearch.text.isNotEmpty;
-    _debouncer.delay = widget.duration;
-  }
+  late final TextEditingController _conSearch =
+      widget.controller ?? TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -149,11 +143,10 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                                   ThemeData().primaryColor,
                               textAlignVertical: TextAlignVertical.center,
                               decoration: widget.searchDecoration,
-                              onChanged: (value) {
-                                _debouncer.run(() {
-                                  widget.onChanged!(value);
-                                });
-                              },
+                              onChanged: widget.onChanged != null
+                                  ? (value) => _debouncer
+                                      .run(() => widget.onChanged?.call(value))
+                                  : null,
                               onFieldSubmitted: widget.onFieldSubmitted,
                             ),
                           ),
@@ -198,15 +191,14 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               },
               child: ValueListenableBuilder(
                 valueListenable: _isSearch,
-                builder: (_, bool value, __) {
-                  return value ? widget.closeIcon : widget.searchIcon;
-                },
+                builder: (_, bool value, __) =>
+                    value ? widget.closeIcon : widget.searchIcon,
               ),
             ),
             onPressed: () {
               if (_isSearch.value && _conSearch.text.isNotEmpty) {
                 _conSearch.clear();
-                widget.onChanged!(_conSearch.text);
+                widget.onChanged?.call(_conSearch.text);
               } else {
                 _isSearch.value = !_isSearch.value;
                 if (!_isSearch.value) widget.onClose?.call();
