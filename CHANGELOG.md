@@ -53,3 +53,6 @@
 ## 2.7.1
 * Fix onChange keep trigger when user close the searchbar
 * Add callback when user close the search
+
+## 2.7.2
+* Handle if onChanged null 
