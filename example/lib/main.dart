@@ -37,15 +37,11 @@ class _MyAppState extends State<MyApp> {
               ),
               onChanged: (value) {
                 print("value on Change");
-                setState(() {
-                  searchText = value;
-                });
+                setState(() => searchText = value);
               },
               onFieldSubmitted: (value) {
                 print("value on Field Submitted");
-                setState(() {
-                  searchText = value;
-                });
+                setState(() => searchText = value);
               }),
         ),
         body: Padding(
@@ -56,15 +52,10 @@ class _MyAppState extends State<MyApp> {
                 label: "Search Something Here",
                 onChanged: (value) {
                   print("value on Change");
-                  setState(() {
-                    searchText = value;
-                  });
+                  setState(() => searchText = value);
                 },
               ),
-              Text(
-                searchText,
-                style: TextStyle(fontSize: 24),
-              )
+              Text(searchText, style: TextStyle(fontSize: 24))
             ],
           ),
         ),
