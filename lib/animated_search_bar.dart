@@ -2,9 +2,9 @@ import 'package:animated_search_bar/debouncer.dart';
 import 'package:flutter/material.dart';
 
 ///*********************************************
-/// Created by ukietux on 22/09/20 with ♥
-/// (>’_’)> email : ukie.tux@gmail.com
-/// github : https://www.github.com/ukieTux <(’_’<)
+/// Created by Lzyct on 22/09/20 with ♥
+/// (>’_’)> email : hey.mudassir@gmail.com
+/// github : https://www.github.com/Lzyct <(’_’<)
 ///*********************************************
 /// © 2020 | All Right Reserved
 class AnimatedSearchBar extends StatefulWidget {
@@ -76,20 +76,20 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
   /// Value notifier to handle change view
   ValueNotifier<bool> _isSearch = ValueNotifier(false);
   final _fnSearch = FocusNode();
-  final _debouncer = Debouncer();
-  late TextEditingController _conSearch;
+  late final _debouncer = Debouncer(duration: widget.duration);
+  late TextEditingController _conSearch =
+      widget.controller ?? TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _conSearch = widget.controller ?? TextEditingController();
+
+    /// initialize isSearch value
     _isSearch.value = _conSearch.text.isNotEmpty;
   }
 
   @override
   Widget build(BuildContext context) {
-    _debouncer.duration = widget.duration;
-
     // Use row as Root view
     return GestureDetector(
       onTap: () {
@@ -110,12 +110,15 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               transitionBuilder: (Widget child, Animation<double> animation) {
                 //animated from right to left
                 final inAnimation = Tween<Offset>(
-                        begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0))
-                    .animate(animation);
+                  begin: Offset(1.0, 0.0),
+                  end: Offset(0.0, 0.0),
+                ).animate(animation);
+
                 //animated from left to right
                 final outAnimation = Tween<Offset>(
-                        begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0))
-                    .animate(animation);
+                  begin: Offset(-1.0, 0.0),
+                  end: Offset(0.0, 0.0),
+                ).animate(animation);
 
                 // show different animation base on key
                 if (child.key == ValueKey("textF")) {
@@ -141,27 +144,32 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                           key: ValueKey("textF"),
                           height: widget.height,
                           child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: TextFormField(
-                                focusNode: _fnSearch,
-                                controller: _conSearch,
-                                keyboardType: TextInputType.text,
-                                textInputAction: widget.textInputAction,
-                                textAlign: widget.alignment,
-                                style: widget.searchStyle,
-                                minLines: 1,
-                                maxLines: 1,
-                                cursorColor: widget.cursorColor ??
-                                    ThemeData().primaryColor,
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: widget.searchDecoration,
-                                onChanged: (value) {
-                                  _debouncer.run(() {
-                                    widget.onChanged!(value);
-                                  });
-                                },
-                                onFieldSubmitted: widget.onFieldSubmitted,
-                              )),
+                            alignment: Alignment.centerLeft,
+                            child: TextFormField(
+                              focusNode: _fnSearch,
+                              controller: _conSearch,
+                              keyboardType: TextInputType.text,
+                              textInputAction: widget.textInputAction,
+                              textAlign: widget.alignment,
+                              style: widget.searchStyle,
+                              minLines: 1,
+                              maxLines: 1,
+                              cursorColor: widget.cursorColor ??
+                                  ThemeData().primaryColor,
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: widget.searchDecoration,
+                              // check if onChanged is not null
+                              onChanged: widget.onChanged != null
+                                  ? (value) {
+                                      // run debouncer to detect user not in typing
+                                      _debouncer.run(() {
+                                        widget.onChanged?.call(value);
+                                      });
+                                    }
+                                  : null,
+                              onFieldSubmitted: widget.onFieldSubmitted,
+                            ),
+                          ),
                         )
                       :
                       //Container of Label
@@ -190,20 +198,19 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               transitionBuilder: (Widget child, Animation<double> animation) {
                 //animated from top to bottom
                 final inAnimation = Tween<Offset>(
-                        begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
-                    .animate(animation);
+                  begin: Offset(0.0, 1.0),
+                  end: Offset(0.0, 0.0),
+                ).animate(animation);
                 //animated from bottom to top
                 final outAnimation = Tween<Offset>(
-                        begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
-                    .animate(animation);
+                  begin: Offset(0.0, -1.0),
+                  end: Offset(0.0, 0.0),
+                ).animate(animation);
 
                 // show different animation base on key
                 if (child.key == ValueKey("close")) {
                   return ClipRect(
-                    child: SlideTransition(
-                      position: inAnimation,
-                      child: child,
-                    ),
+                    child: SlideTransition(position: inAnimation, child: child),
                   );
                 } else {
                   return ClipRect(
@@ -216,9 +223,8 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               /// Use ValueListenableBuilder to handle change view
               child: ValueListenableBuilder(
                 valueListenable: _isSearch,
-                builder: (_, bool value, __) {
-                  return value ? widget.closeIcon : widget.searchIcon;
-                },
+                builder: (_, bool value, __) =>
+                    value ? widget.closeIcon : widget.searchIcon,
               ),
             ),
             onPressed: () {
