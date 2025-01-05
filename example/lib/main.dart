@@ -24,9 +24,10 @@ class _MyAppState extends State<MyApp> {
               label: 'Search Something Here',
               controller: _controller,
               labelStyle: const TextStyle(fontSize: 16),
-              searchStyle: const TextStyle(color: Colors.white),
+              searchStyle: const TextStyle(color: Colors.grey),
               cursorColor: Colors.white,
               textInputAction: TextInputAction.done,
+              autoFocus: true,
               searchDecoration: const InputDecoration(
                 hintText: 'Search',
                 alignLabelWithHint: true,
@@ -56,9 +57,7 @@ class _MyAppState extends State<MyApp> {
                 label: 'Search Something Here',
                 onChanged: (value) {
                   debugPrint('value on Change');
-                  setState(() {
-                    searchText = value;
-                  });
+                  setState(() => searchText = value);
                 },
               ),
               Text(
