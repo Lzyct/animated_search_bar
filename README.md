@@ -50,6 +50,7 @@ AnimatedSearchBar(
 | **TextEditingController** controller                                                | No         |
 | **Function(String)** onFieldSubmitted                                               | No         |
 | **TextInputAction** textInputAction  *default TextInputAction.search*               | No         |
+| **bool** autoFocus *default false                                                   | No         |
 
 ---
 <h3 align="center">Buy me coffee if you love my works ☕️</h3> <p align="center">
