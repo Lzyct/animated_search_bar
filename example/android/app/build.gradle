@@ -27,7 +27,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 35
-    namespace 'com.codexlogs.flutter_search_bar_example'
+    namespace 'com.lazycatlabs.flutter_search_bar_example'
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -48,7 +48,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.codexlogs.flutter_search_bar_example"
+        applicationId "com.lazycatlabs.flutter_search_bar_example"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()

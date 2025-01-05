@@ -56,3 +56,6 @@
 
 ## 2.7.2
 * Handle if onChanged null 
+
+## 2.8.0
+* Add autoFocus parameter
