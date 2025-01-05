@@ -25,37 +25,39 @@ class AnimatedSearchBar extends StatefulWidget {
   ///  when the user submits the search field.
   /// [textInputAction] is the action to take when the user presses
   ///   the keyboard's done button.
+  /// [autoFocus] specifies whether the search bar should be focused
 
-  const AnimatedSearchBar(
-      {Key? key,
-      this.label = '',
-      this.labelAlignment = Alignment.centerLeft,
-      this.labelTextAlign = TextAlign.start,
-      this.onChanged,
-      this.labelStyle = const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.bold,
+  const AnimatedSearchBar({
+    Key? key,
+    this.label = '',
+    this.labelAlignment = Alignment.centerLeft,
+    this.labelTextAlign = TextAlign.start,
+    this.onChanged,
+    this.labelStyle = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    ),
+    this.searchDecoration = const InputDecoration(
+      labelText: 'Search',
+      alignLabelWithHint: true,
+      contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
-      this.searchDecoration = const InputDecoration(
-        labelText: 'Search',
-        alignLabelWithHint: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
-      ),
-      this.animationDuration = const Duration(milliseconds: 350),
-      this.searchStyle = const TextStyle(color: Colors.black),
-      this.cursorColor,
-      this.duration = const Duration(milliseconds: 300),
-      this.height = 60,
-      this.closeIcon = const Icon(Icons.close, key: ValueKey('close')),
-      this.searchIcon = const Icon(Icons.search, key: ValueKey('search')),
-      this.controller,
-      this.onFieldSubmitted,
-      this.textInputAction = TextInputAction.search,
-      this.onClose})
-      : super(key: key);
+    ),
+    this.animationDuration = const Duration(milliseconds: 350),
+    this.searchStyle = const TextStyle(color: Colors.black),
+    this.cursorColor,
+    this.duration = const Duration(milliseconds: 300),
+    this.height = 60,
+    this.closeIcon = const Icon(Icons.close, key: ValueKey('close')),
+    this.searchIcon = const Icon(Icons.search, key: ValueKey('search')),
+    this.controller,
+    this.onFieldSubmitted,
+    this.textInputAction = TextInputAction.search,
+    this.onClose,
+    this.autoFocus = false,
+  }) : super(key: key);
 
   final String label;
   final Alignment labelAlignment;
@@ -74,6 +76,7 @@ class AnimatedSearchBar extends StatefulWidget {
   final Function(String)? onFieldSubmitted;
   final TextInputAction textInputAction;
   final VoidCallback? onClose;
+  final bool autoFocus;
 
   @override
   _AnimatedSearchBarState createState() => _AnimatedSearchBarState();
@@ -81,7 +84,7 @@ class AnimatedSearchBar extends StatefulWidget {
 
 class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
   late final ValueNotifier<bool> _isSearch =
-      ValueNotifier(_conSearch.text.isNotEmpty);
+      ValueNotifier(widget.autoFocus || _conSearch.text.isNotEmpty);
   final _fnSearch = FocusNode();
   late final _debouncer = Debouncer(delay: widget.duration);
 
@@ -89,43 +92,41 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
       widget.controller ?? TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (!_isSearch.value) {
-          _isSearch.value = true;
-          _fnSearch.requestFocus();
-        }
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: AnimatedSwitcher(
-              duration: widget.animationDuration,
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                final inAnimation = Tween<Offset>(
-                  begin: const Offset(1.0, 0.0),
-                  end: const Offset(0.0, 0.0),
-                ).animate(animation);
-                final outAnimation = Tween<Offset>(
-                  begin: const Offset(-1.0, 0.0),
-                  end: const Offset(0.0, 0.0),
-                ).animate(animation);
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: () {
+          if (!_isSearch.value) {
+            _isSearch.value = true;
+            _fnSearch.requestFocus();
+          }
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: AnimatedSwitcher(
+                duration: widget.animationDuration,
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  final inAnimation = Tween<Offset>(
+                    begin: const Offset(1.0, 0.0),
+                    end: const Offset(0.0, 0.0),
+                  ).animate(animation);
+                  final outAnimation = Tween<Offset>(
+                    begin: const Offset(-1.0, 0.0),
+                    end: const Offset(0.0, 0.0),
+                  ).animate(animation);
 
-                return ClipRect(
-                  child: SlideTransition(
-                    position: child.key == const ValueKey('textF')
-                        ? inAnimation
-                        : outAnimation,
-                    child: child,
-                  ),
-                );
-              },
-              child: ValueListenableBuilder(
-                valueListenable: _isSearch,
-                builder: (_, bool value, __) {
-                  return value
+                  return ClipRect(
+                    child: SlideTransition(
+                      position: child.key == const ValueKey('textF')
+                          ? inAnimation
+                          : outAnimation,
+                      child: child,
+                    ),
+                  );
+                },
+                child: ValueListenableBuilder(
+                  valueListenable: _isSearch,
+                  builder: (_, bool value, __) => value
                       ? SizedBox(
                           key: const ValueKey('textF'),
                           height: widget.height,
@@ -134,6 +135,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                             child: TextFormField(
                               focusNode: _fnSearch,
                               controller: _conSearch,
+                              autofocus: widget.autoFocus,
                               keyboardType: TextInputType.text,
                               textInputAction: widget.textInputAction,
                               textAlign: widget.labelTextAlign,
@@ -162,52 +164,50 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
                               textAlign: widget.labelTextAlign,
                             ),
                           ),
-                        );
-                },
+                        ),
+                ),
               ),
             ),
-          ),
-          IconButton(
-            icon: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 350),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                final inAnimation = Tween<Offset>(
-                  begin: const Offset(0.0, 1.0),
-                  end: const Offset(0.0, 0.0),
-                ).animate(animation);
-                final outAnimation = Tween<Offset>(
-                  begin: const Offset(0.0, -1.0),
-                  end: const Offset(0.0, 0.0),
-                ).animate(animation);
+            IconButton(
+              icon: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 350),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  final inAnimation = Tween<Offset>(
+                    begin: const Offset(0.0, 1.0),
+                    end: const Offset(0.0, 0.0),
+                  ).animate(animation);
+                  final outAnimation = Tween<Offset>(
+                    begin: const Offset(0.0, -1.0),
+                    end: const Offset(0.0, 0.0),
+                  ).animate(animation);
 
-                return ClipRect(
-                  child: SlideTransition(
-                    position: child.key == const ValueKey('close')
-                        ? inAnimation
-                        : outAnimation,
-                    child: child,
-                  ),
-                );
-              },
-              child: ValueListenableBuilder(
-                valueListenable: _isSearch,
-                builder: (_, bool value, __) =>
-                    value ? widget.closeIcon : widget.searchIcon,
+                  return ClipRect(
+                    child: SlideTransition(
+                      position: child.key == const ValueKey('close')
+                          ? inAnimation
+                          : outAnimation,
+                      child: child,
+                    ),
+                  );
+                },
+                child: ValueListenableBuilder(
+                  valueListenable: _isSearch,
+                  builder: (_, bool value, __) =>
+                      value ? widget.closeIcon : widget.searchIcon,
+                ),
               ),
+              onPressed: () {
+                if (_isSearch.value && _conSearch.text.isNotEmpty) {
+                  _conSearch.clear();
+                  widget.onChanged?.call(_conSearch.text);
+                } else {
+                  _isSearch.value = !_isSearch.value;
+                  if (!_isSearch.value) widget.onClose?.call();
+                  if (_isSearch.value) _fnSearch.requestFocus();
+                }
+              },
             ),
-            onPressed: () {
-              if (_isSearch.value && _conSearch.text.isNotEmpty) {
-                _conSearch.clear();
-                widget.onChanged?.call(_conSearch.text);
-              } else {
-                _isSearch.value = !_isSearch.value;
-                if (!_isSearch.value) widget.onClose?.call();
-                if (_isSearch.value) _fnSearch.requestFocus();
-              }
-            },
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
 }
